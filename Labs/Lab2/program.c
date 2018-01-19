@@ -6,7 +6,7 @@
 int main (){
     //variables
 	char input[64];
-    char args[10][10];
+    char *args[20];
     int end = 1;
     int count = 0;
 
@@ -19,7 +19,7 @@ int main (){
     while (end){
          strcpy(args[count], strtok (input, " "));
         count++;
-        if (args[count] == NULL){
+        if (args[count-1] == NULL){
             count -= 2;
             end = 0;
         }
