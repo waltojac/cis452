@@ -7,9 +7,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+int array_push(char*** arr, int size, char* c);
+
 int main (){
 	char input[64];
-	char* token;
+	char** cmd_args = NULL;
 
 	//User Prompt
 	printf("Enter command: ");
@@ -17,18 +19,39 @@ int main (){
 	//Get User Input
 	fgets(input, 64, stdin);
 
-	//========Testing==========
-
 	//Parse input
-	token = strtok(input, " ");
-	printf("First token: %s\n", token);
-	//Calls to strtok after the first need to have
-	//NULL as the string. Token will return null if 
-	//there are no more.
-	token = strtok(NULL, " "); 
-	printf("Second token: %s\n", token);
-	//=========================
+	char* token = strtok(input, " \n");
+	printf("Next token: %s\n", token);
+	int count = 1;
 
+	//empty array of cmd arguments
+	cmd_args = (char**)malloc(sizeof(char*)*0);
 
+	//If the current token exits, push onto array and get next one
+	while(token != NULL) {
+		array_push(&cmd_args, count, token);
+		count = count + 1;
+		token = strtok(NULL, " "); 
+		printf("Next token: %s\n", token);
+	}
+
+	free(cmd_args);
 	return 0;
+}
+
+int array_push(char*** arr, int size, char* c) {
+	char** tmp = (char**)malloc(sizeof(*arr));
+	tmp = *arr;
+	*arr = malloc(sizeof(char*)*size);
+	
+	int i;
+	for(i = 0; i < size-1; i++)
+	{
+		*arr[i] = (char*)malloc(sizeof(char*));
+		strcpy(*arr[i], tmp[i]);
+	}
+	*arr[size-1] = (char*)malloc(sizeof(char*));
+	strcpy(*arr[size-1], c);
+	free(tmp);
+	return 1;
 }
