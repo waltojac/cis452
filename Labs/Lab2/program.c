@@ -21,7 +21,6 @@ int main (){
 
 	//Parse input
 	char* token = strtok(input, " \n");
-	printf("Next token: %s\n", token);
 	int count = 1;
 
 	//empty array of cmd arguments
@@ -31,8 +30,7 @@ int main (){
 	while(token != NULL) {
 		array_push(&cmd_args, count, token);
 		count = count + 1;
-		token = strtok(NULL, " "); 
-		printf("Next token: %s\n", token);
+		token = strtok(NULL, " \n"); 
 	}
 
 	free(cmd_args);
@@ -47,11 +45,11 @@ int array_push(char*** arr, int size, char* c) {
 	int i;
 	for(i = 0; i < size-1; i++)
 	{
-		*arr[i] = (char*)malloc(sizeof(char*));
-		strcpy(*arr[i], tmp[i]);
+		(*arr)[i] = (char*)malloc(sizeof(char*));
+		strcpy((*arr)[i], tmp[i]);
 	}
-	*arr[size-1] = (char*)malloc(sizeof(char*));
-	strcpy(*arr[size-1], c);
+	(*arr)[size-1] = (char*)malloc(sizeof(char*));
+	strcpy((*arr)[size-1], c);
 	free(tmp);
 	return 1;
 }
