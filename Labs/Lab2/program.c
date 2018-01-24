@@ -16,7 +16,6 @@ int array_push(char*** arr, int size, char* c);
 int free_arr(char*** arr, int size);
 
 int main (){
-	mtrace();
 
 	char input[64];
 	char** cmd_args = NULL;
@@ -67,9 +66,9 @@ int main (){
 }
 
 int array_push(char*** arr, int size, char* c) {
-	char** tmp = (char**)malloc(sizeof(*arr));
-	tmp = *arr;
-	*arr = malloc(sizeof(char*)*size);
+	char** tmp = (char**)malloc(sizeof(char*)*(size-1));
+	memcpy(&tmp, arr, (sizeof(char*)*(size-1)));
+	*arr = (char**)malloc(sizeof(char*)*size);
 	
 	int i;
 	for(i = 0; i < (size-1); i++)
