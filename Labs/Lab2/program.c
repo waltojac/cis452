@@ -12,83 +12,72 @@
 #include <sys/types.h>
 #include <errno.h>
 
+#define ARRSIZE 64
+
 int array_push(char*** arr, int size, char* c);
 int free_arr(char*** arr, int size);
 
 int main (){
 
-	char input[64];
-	char** cmd_args = NULL;
+	char input[ARRSIZE];
+	char* cmd_args[ARRSIZE];
 	pid_t pid;
 	int status;
 
-	//User Prompt
-	printf("Enter command: ");
+	while(1) {
 
-	//Get User Input
-	fgets(input, 64, stdin);
+		//User Prompt
+		printf("Enter command: ");
 
-	//Parse input
-	char* token = strtok(input, " \n");
-	int count = 1;
+		//Get User Input
+		fgets(input, 64, stdin);
 
-	//empty array of cmd arguments
-	cmd_args = (char**)malloc(sizeof(char*)*1);
+		//Parse input
+		char* token = strtok(input, " \n");
 
-	//If the current token exits, push onto array and get next one
-	while(token != NULL) {
-		array_push(&cmd_args, count, token);
-		count = count + 1;
-		token = strtok(NULL, " \n"); 
+		// Escape if 'quit'
+		if(!strcmp(token, "quit")) {
+			break;	
+		}
+
+		int count = 0;
+
+		//Clear cmd_args
+		int i;
+		for(i = 0; i < ARRSIZE; i++) {
+			cmd_args[i] = (char*)calloc(ARRSIZE, sizeof(char)*ARRSIZE);
+		}
+
+		//If the current token exits, push onto array and get next one
+		while(token != NULL) {
+			strcpy(cmd_args[count], token);
+			count = count + 1;
+			token = strtok(NULL, " \n"); 
+		}
+
+		//Null terminate vector
+		cmd_args[count] = NULL;;
+
+		//Spawn child process
+		pid = fork();
+		if(pid < 0)
+		{
+			fprintf(stderr, "An error occurred while forking");
+			return -1;
+		} else if (pid) {
+			waitpid(pid, &status, 0);
+		} else {
+			if (execvp(cmd_args[0], &(cmd_args[0])) < 0) {
+				exit(errno);
+			}
+		}
 	}
 
-	//Spawn child process
-	pid = fork();
-	if(pid < 0)
-	{
-		fprintf(stderr, "An error occurred while forking");
-		return -1;
-	} else if (pid) {
-		waitpid(pid, &status, 0);
-	} else {
-		printf("cmd_args[2]: %s\n", cmd_args[2]);
-		execvp(cmd_args[0], &cmd_args[0]);
-		/*
-		printf("Exec fail\n");
-		*/
-		printf("Error: %s\n", strerror(errno));
-		exit(errno);
+	//Clear cmd_args
+	int i;
+	for(i = 0; i < ARRSIZE; i++) {
+		free(cmd_args[i]);
 	}
 
-
-	free_arr(&cmd_args, count);
 	return 0;
-}
-
-int array_push(char*** arr, int size, char* c) {
-	char** tmp = (char**)malloc(sizeof(char*)*(size-1));
-	memcpy(&tmp, arr, (sizeof(char*)*(size-1)));
-	*arr = (char**)malloc(sizeof(char*)*size);
-	
-	int i;
-	for(i = 0; i < (size-1); i++)
-	{
-		(*arr)[i] = (char*)malloc(sizeof(char*));
-		strcpy((*arr)[i], tmp[i]);
-	}
-	(*arr)[size-1] = (char*)malloc(sizeof(char*));
-	strcpy((*arr)[size-1], c);
-	free(tmp);
-	return 1;
-}
-
-int free_arr(char*** arr, int size) {
-	int i;
-	for(i = 0; i < size-1; i++)
-	{
-		char* currentPtr = (*arr)[i];
-		free(currentPtr);
-	}
-	//free(arr);
-	return 1;
 }
