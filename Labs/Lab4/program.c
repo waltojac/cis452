@@ -20,8 +20,17 @@ void sigHandler(int sigNum);
 
 
 int main(){
+	//Install signal handlers
+	signal(SIGINT, sigHandler);
+
+	//variables
+	char input[64];
+
 	//grab a string
+	printf("Enter filename: ");
 	
+	//grab string
+	fgets(input, 64, stdin);	
 
 	//spawn child and send filename
 	
@@ -35,7 +44,8 @@ void* worker(void* args){
 }
 
 void sigHandler(int sigNum){
-
-
+	if (sigNum == SIGINT){
+		//graceful shutdown
+	}
 
 }
