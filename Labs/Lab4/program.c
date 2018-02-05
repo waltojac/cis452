@@ -18,8 +18,13 @@
 void* worker(void* args);
 void sigHandler(int sigNum);
 
+int requests;
+char* input;
 
 int main(){
+
+	requests = 0;
+
 	//Install signal   handlers
 	signal(SIGINT, sigHandler);
 
@@ -27,10 +32,9 @@ int main(){
 	pthread_t thread1;  // thread ID holder 
 	int status;         // captures any error code
 	
-
 	while(1){
 		//user input
-		char * input = (char*)malloc(sizeof(char)*64);
+		input = (char*)malloc(sizeof(char)*64);
 		
 		//User Prompt
 		printf("Enter filename: ");
@@ -43,22 +47,39 @@ int main(){
 			fprintf(stderr, "Thread create error %d: %s\n",status, strerror(status));
 			exit(1);
 		}	
-		
-		sleep(3);
-		free(input);
+
+		requests++;
+
+		if(pthread_detach(thread1)) {
+			fprintf(stderr, "Error detaching thread\n");
+			exit(1);
+		}
+	
 		//repeat
 	}
 }
 
 void* worker(void* args){
-	sleep(2);
-	printf("\nRecieved: %s\n", (char*)args);
+	char * data = (char*)args;
+	//Desired file found
+	int prob = rand() % 10;
+	if(prob < 2) {
+		printf("File \"%s\" not in cache, searching Hard Drive...\n", data);
+		int sleepnum = rand() % 4 + 7;
+		sleep(sleepnum);
+		printf("File \"%s\" found in Hard Drive\n", data);
+	} else {
+		sleep(1);
+		printf("File \"%s\" found in cache\n", data);
+	}
 	return args;
 }
 
 void sigHandler(int sigNum){
 	if (sigNum == SIGINT){
 		//graceful shutdown
+		free(input);
+		printf("\nTotal number of file requests received: %d\n", requests);
 		printf("\nShutting down... \n");
 		exit(0);
 	}
