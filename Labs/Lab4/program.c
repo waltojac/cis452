@@ -59,7 +59,7 @@ void* worker(void* args){
 void sigHandler(int sigNum){
 	if (sigNum == SIGINT){
 		//graceful shutdown
-		printf("\n");
+		printf("\nShutting down... \n");
 		exit(0);
 	}
 
