@@ -20,32 +20,44 @@ void sigHandler(int sigNum);
 
 
 int main(){
-	//Install signal handlers
+	//Install signal   handlers
 	signal(SIGINT, sigHandler);
 
 	//variables
-	char input[64];
+	pthread_t thread1;  // thread ID holder 
+	int status;         // captures any error code
+	
 
-	//grab a string
-	printf("Enter filename: ");
+	while(1){
+		//user input
+		char * input = (char*)malloc(sizeof(char)*64);
+		
+		//User Prompt
+		printf("Enter filename: ");
 	
-	//grab string
-	fgets(input, 64, stdin);	
+		//grab string                         
+		fgets(input, 64, stdin);	
 
-	//spawn child and send filename
-	
-	
-	//repeat
+		//spawn child and send filename
+		if ((status = pthread_create(&thread1, NULL, worker, input)) != 0){
+			fprintf(stderr, "Thread create error %d: %s\n",status, strerror(status));
+			exit(1);
+		}	
+		free(input);
+		//repeat
+	}
 }
 
 void* worker(void* args){
-
-
+	sleep(3);
+	printf("\nRecieved: %s", (char*)args);
+	return args;
 }
 
 void sigHandler(int sigNum){
 	if (sigNum == SIGINT){
 		//graceful shutdown
+		exit(0);
 	}
 
 }
