@@ -43,20 +43,23 @@ int main(){
 			fprintf(stderr, "Thread create error %d: %s\n",status, strerror(status));
 			exit(1);
 		}	
+		
+		sleep(3);
 		free(input);
 		//repeat
 	}
 }
 
 void* worker(void* args){
-	sleep(3);
-	printf("\nRecieved: %s", (char*)args);
+	sleep(2);
+	printf("\nRecieved: %s\n", (char*)args);
 	return args;
 }
 
 void sigHandler(int sigNum){
 	if (sigNum == SIGINT){
 		//graceful shutdown
+		printf("\n");
 		exit(0);
 	}
 
