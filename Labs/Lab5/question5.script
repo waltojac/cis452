@@ -1,4 +1,4 @@
-Script started on Thu 08 Feb 2018 02:29:29 PM EST
+Script started on Thu 08 Feb 2018 02:37:22 PM EST
 [?1034h[eos18:~/CIS452/CIS452-Group-Work/Labs/Lab5]$ ^C
 [eos18:~/CIS452/CIS452-Group-Work/Labs/Lab5]$ ipcs
 
@@ -27,7 +27,7 @@ key        shmid      owner      perms      bytes      nattch     status
 0x00000000 117309457  lafeldtb   600        376832     2          dest         
 0x00000000 117342226  lafeldtb   600        376832     2          dest         
 0x00000000 119341075  lafeldtb   600        40960      2          dest         
-0x00000000 142147604  lafeldtb   600        524288     2          dest         
+0x00000000 145227796  lafeldtb   600        4096       1                       
 0x00000000 117997589  lafeldtb   600        1150976    2          dest         
 0x00000000 118358038  lafeldtb   600        524288     2          dest         
 0x00000000 118423575  lafeldtb   600        393216     2          dest         
@@ -35,14 +35,14 @@ key        shmid      owner      perms      bytes      nattch     status
 0x00000000 118652953  lafeldtb   600        393216     2          dest         
 0x00000000 119242778  lafeldtb   600        12288      2          dest         
 0x00000000 119373851  lafeldtb   600        40960      2          dest         
-0x00000000 141951004  lafeldtb   600        4096       1                       
+0x00000000 145195039  lafeldtb   600        524288     2          dest         
 0x00002431 38436912   nelsochr   666        16384      0                       
 
 ------ Semaphore Arrays --------
 key        semid      owner      perms      nsems     
 
-[eos18:~/CIS452/CIS452-Group-Work/Labs/Lab5]$ ipcrm -m 141951004 
-[eos18:~/CIS452/CIS452-Group-Work/Labs/Lab5]$ ipcs
+[eos18:~/CIS452/CIS452-Group-Work/Labs/Lab5]$ ipcrm 14[K[K-m 145227796
+[eos18:~/CIS452/CIS452-Group-Work/Labs/Lab5]$ p[Kipcs
 
 ------ Message Queues --------
 key        msqid      owner      perms      used-bytes   messages    
@@ -69,7 +69,7 @@ key        shmid      owner      perms      bytes      nattch     status
 0x00000000 117309457  lafeldtb   600        376832     2          dest         
 0x00000000 117342226  lafeldtb   600        376832     2          dest         
 0x00000000 119341075  lafeldtb   600        40960      2          dest         
-0x00000000 142147604  lafeldtb   600        524288     2          dest         
+0x00000000 145227796  lafeldtb   600        4096       1          dest         
 0x00000000 117997589  lafeldtb   600        1150976    2          dest         
 0x00000000 118358038  lafeldtb   600        524288     2          dest         
 0x00000000 118423575  lafeldtb   600        393216     2          dest         
@@ -77,7 +77,7 @@ key        shmid      owner      perms      bytes      nattch     status
 0x00000000 118652953  lafeldtb   600        393216     2          dest         
 0x00000000 119242778  lafeldtb   600        12288      2          dest         
 0x00000000 119373851  lafeldtb   600        40960      2          dest         
-0x00000000 141951004  lafeldtb   600        4096       1          dest         
+0x00000000 145195039  lafeldtb   600        524288     2          dest         
 0x00002431 38436912   nelsochr   666        16384      0                       
 
 ------ Semaphore Arrays --------
@@ -86,4 +86,4 @@ key        semid      owner      perms      nsems
 [eos18:~/CIS452/CIS452-Group-Work/Labs/Lab5]$ exit
 exit
 
-Script done on Thu 08 Feb 2018 02:30:43 PM EST
+Script done on Thu 08 Feb 2018 02:38:07 PM EST

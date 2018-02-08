@@ -21,7 +21,7 @@ int main ()
 		perror ("can't attach\n"); 
 		exit (1); 
 	}
-	printf ("value a: %lu\t value b: %lu\n", (unsigned long) shmPtr, (unsigned long) shmPtr + FOO);
+	printf ("value a: %lu\t value b: %lu\t Shared memory ID: %d\n", (unsigned long) shmPtr, (unsigned long) shmPtr + FOO, shmId);
 
 	//Edited for Question 4 ---------------
 	struct shmid_ds* buf;
