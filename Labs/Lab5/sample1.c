@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 #include <sys/ipc.h> 
 #include <sys/shm.h>
+#include <unistd.h>
 
 #define FOO 4096
 
@@ -31,6 +32,7 @@ int main ()
 		exit(1);
 	}
 	printf("Shared memory segment size: %ld\n", buf->shm_segsz);
+	pause();
 	free(buf);
 
 	//-------------------------------------
