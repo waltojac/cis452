@@ -75,7 +75,6 @@ int main(){
 }
 
 void* worker(void* args){
-	pthread_mutex_lock(&lock);
 
 	char * data = (char*)args;
 	//Desired file found
@@ -86,18 +85,22 @@ void* worker(void* args){
 		printf("File \"%s\" not in cache, searching Hard Drive...\n", data);
 		int sleepnum = rand() % 4 + 7;
 		sleep(sleepnum);
+		pthread_mutex_lock(&lock);
 		totalAccessTime += (float)sleepnum;
+		pthread_mutex_unlock(&lock);
 		printf("File \"%s\" found in Hard Drive\n", data);
 	} 
 	//for 80% probability
 	else {
 		sleep(1);
+		pthread_mutex_lock(&lock);
 		totalAccessTime += 1.0;
+		pthread_mutex_unlock(&lock);
 		printf("File \"%s\" found in cache\n", data);
 	}
-	pthread_mutex_unlock(&lock);
 
-	return args;
+	free(args);
+	return NULL;
 }
 
 void sigHandler(int sigNum){
