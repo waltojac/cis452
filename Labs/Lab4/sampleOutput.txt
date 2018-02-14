@@ -1,0 +1,44 @@
+[eos17:~/Documents/cis452/cis452/Labs/Lab4]$ gcc -Wall -lpthread program.c 
+[eos17:~/Documents/cis452/cis452/Labs/Lab4]$ ls
+a.out  program.c  sample1.c  sample2.c	sample3.c
+[eos17:~/Documents/cis452/cis452/Labs/Lab4]$ ./a.out 
+Enter filename: foo
+Enter filename: File "foo
+" found in cache
+foo1
+Enter filename: File "foo1
+" found in cache
+1
+Enter filename: File "1
+" found in cache
+ 
+Enter filename: File "
+" found in cache
+asdf
+Enter filename: File "asdf
+" found in cache
+asdf
+Enter filename: File "asdf
+" found in cache
+d
+Enter filename: File "d
+" found in cache
+f
+Enter filename: File "f
+" found in cache
+g
+Enter filename: File "g
+" found in cache
+d
+Enter filename: File "d
+" not in cache, searching Hard Drive...
+File "d
+" found in Hard Drive
+^C
+Total number of file requests received: 10
+Average file access time: 1.800000 seconds.
+
+Shutting down... 
+[eos17:~/Documents/cis452/cis452/Labs/Lab4]$ ls
+a.out  program.c  sample1.c  sample2.c	sample3.c
+
