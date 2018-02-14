@@ -6,21 +6,19 @@
 #include <sys/ipc.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <signal.h>
+
+void sigHandler(int sigNum);
+
+int shmId;
+char str[64];
+char *shmPtr;
+key_t set_key;
 
 
 int main(){
-	int shmId;
-	char str[64];
-	char *shmPtr;
-	key_t set_key;
 
-	//get the shmId from the user
-	/*
-	printf("Please enter the shared memory ID: ");
-	fflush(stdout);
-	fgets(str, 64, stdin);
-	shmId = atoi(str);
-	*/
+	signal(SIGINT, sigHandler);
 
 	//create key
 	set_key = ftok("/home/waltojac/Documents/cis452/Labs/Lab5", 'a');
@@ -52,4 +50,24 @@ int main(){
 	printf("%s", shmPtr);
 
 	return 0;
+}
+
+void sigHandler(int sigNum){
+	if(sigNum == SIGINT){
+		//detach
+		printf("Reader detaching from shared memory\n");
+		if (shmdt(shmPtr) < 0){
+			perror("Can't detach.");
+			exit(1);
+		}
+		printf("Reader deallocating shared memory\n");
+		if (shmctl (shmId, IPC_RMID, 0) < 0){
+			perror("Can't deallocate.");
+			exit(1);
+		}
+		printf("Exiting Reader...\n");
+		exit(0);
+
+	}
+
 }
