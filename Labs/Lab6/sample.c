@@ -49,9 +49,9 @@ int main (int argv, char * args[])
    else
       for (i=0; i<loop; i++) {
                // swap the contents of shmPtr[1] and shmPtr[0]
-			temp = shmPtr[0];
-			shmPtr[0] = shmPtr[1];
-			shmPtr[1] = temp;
+			temp = shmPtr[1];
+			shmPtr[1] = shmPtr[0];
+			shmPtr[0] = temp;
       }
 
    wait (&status);
