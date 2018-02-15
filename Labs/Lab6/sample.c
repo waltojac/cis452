@@ -6,8 +6,10 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
+#include <sys/sem.h>
 
 #define SIZE 16
+
 
 int main (int argv, char * args[])
 {
@@ -15,6 +17,15 @@ int main (int argv, char * args[])
    long int i, loop, temp, *shmPtr;
    int shmId;
    pid_t pid;
+	int semId;
+	struct sembuf sbuf;
+
+
+   //create semaphore
+   semId = semget (IPC_PRIVATE, 1, 00600);
+
+   //initialize semaphore
+	semctl (semId, 0, SETVAL, 1);
 
     // get value of loop variable (from command-line argument)
 	loop = atoi(args[1]);
@@ -66,5 +77,7 @@ int main (int argv, char * args[])
       exit(1);
    }
 
+	//free semaphore
+	semctl(semId, 0, IPC_RMID);
    return 0;
 }
