@@ -1,0 +1,62 @@
+Script started on Thu 22 Feb 2018 12:58:36 PM EST
+[?1034h[eos17:~/CIS452/CIS452-Group-Work/Labs/Lab6]$ gcc -Wall sample.c
+[eos17:~/CIS452/CIS452-Group-Work/Labs/Lab6]$ ./a.out 1
+Creating semaphore
+Initializing semaphore
+
+Loop: 1
+Creating shared memory
+values: 0	1
+[eos17:~/CIS452/CIS452-Group-Work/Labs/Lab6]$ ./a.out 10
+Creating semaphore
+Initializing semaphore
+
+Loop: 10
+Creating shared memory
+values: 0	1
+[eos17:~/CIS452/CIS452-Group-Work/Labs/Lab6]$ ./a.out 100
+Creating semaphore
+Initializing semaphore
+
+Loop: 100
+Creating shared memory
+values: 0	1
+[eos17:~/CIS452/CIS452-Group-Work/Labs/Lab6]$ ./a.out 1000
+Creating semaphore
+Initializing semaphore
+
+Loop: 1000
+Creating shared memory
+values: 0	1
+[eos17:~/CIS452/CIS452-Group-Work/Labs/Lab6]$ ./a.out 10000
+Creating semaphore
+Initializing semaphore
+
+Loop: 10000
+Creating shared memory
+values: 0	1
+[eos17:~/CIS452/CIS452-Group-Work/Labs/Lab6]$ ./a.out 100000
+Creating semaphore
+Initializing semaphore
+
+Loop: 100000
+Creating shared memory
+values: 0	1
+[eos17:~/CIS452/CIS452-Group-Work/Labs/Lab6]$ 0[K./a.out 1000000
+Creating semaphore
+Initializing semaphore
+
+Loop: 1000000
+Creating shared memory
+values: 0	1
+[eos17:~/CIS452/CIS452-Group-Work/Labs/Lab6]$ ./a.out 10000000
+Creating semaphore
+Initializing semaphore
+
+Loop: 10000000
+Creating shared memory
+values: 0	1
+[eos17:~/CIS452/CIS452-Group-Work/Labs/Lab6]$ exit
+exit
+
+Script done on Thu 22 Feb 2018 12:59:46 PM EST
