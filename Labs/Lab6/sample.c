@@ -10,7 +10,7 @@
 
 #define SIZE 16
 
-struct sembuf sops[2];
+struct sembuf sops[3];
 
 void Wait(int semId);
 void Signal(int semId);
@@ -26,7 +26,7 @@ int main (int argv, char * args[])
 
 	printf("Creating semaphore\n");
 	//create semaphore
-	semId = semget (IPC_PRIVATE, 1, (IPC_CREAT | IPC_EXCL | IPC_NOWAIT));
+	semId = semget (IPC_PRIVATE, 1, 0600);
 
 	printf("Initializing semaphore\n");
 	//initialize semaphore
@@ -100,13 +100,10 @@ int main (int argv, char * args[])
 
 void Wait(int semId) {
 
-	printf("Waiting...\n");
-
 	// Decrement val by 1
 	sops[0].sem_num = 0;
-	sops[0].sem_op = 1;
-	sops[0].sem_flg = SEM_UNDO;
-
+	sops[0].sem_op = -1;
+	sops[0].sem_flg = 0;
 	// Wait for val to become 0
 	sops[1].sem_num = 0;
 	sops[1].sem_op = 0;
@@ -120,14 +117,12 @@ void Wait(int semId) {
 
 void Signal(int semId) {
 
-	printf("Signaling...\n");
-
 	// Increment value by 1
-	sops[0].sem_num = 0;
-	sops[0].sem_op = 1;
-	sops[0].sem_flg = SEM_UNDO;
+	sops[2].sem_num = 0;
+	sops[2].sem_op = 1;
+	sops[2].sem_flg = 0;
 
-	if(semop(semId, sops, 1) < 0) {
+	if(semop(semId, sops + 2, 1) < 0) {
 		perror("semop");
 		exit(1);
 	}
