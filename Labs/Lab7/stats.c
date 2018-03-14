@@ -46,7 +46,8 @@ int main(){
 	printf("Soft limit:\t%d\n", (int)(nofile->rlim_cur));
 	free(nofile);
 
-	//create and allocate the structure for num of files
+	//create and allocate the structure for number of pages
+	//FIXME
 	struct rlimit *as;
 	as = (struct rlimit *)malloc(sizeof(struct rlimit));
 	
@@ -57,6 +58,22 @@ int main(){
 	printf("Hard limit:\t%d\n", (int)(as->rlim_max)/4096);
 	printf("Soft limit:\t%d\n", (int)(as->rlim_cur)/4096);
 
+
+	//clock resolution
+	struct timeval * time;
+	time = (struct timeval *)malloc(sizeof(struct timeval));
+
+	struct rusage * usage;
+	usage = (struct rusage *)malloc(sizeof(usage));
+
+	getrusage(RUSAGE_SELF, usage);
+	
+	*time = usage->ru_stime;
+	printf("\nUser Time: %f\n", (double)time->tv_usec);
+	fflush(stdout);
+
+	free(time);
+	free(usage);
 
 	return 0;
 
