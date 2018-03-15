@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <time.h>
 #include <sys/resource.h>
 
 int main(){
@@ -58,22 +59,32 @@ int main(){
 	printf("Hard limit:\t%d\n", (int)(as->rlim_max)/4096);
 	printf("Soft limit:\t%d\n", (int)(as->rlim_cur)/4096);
 
+	free(as);
 
 	//clock resolution
-	struct timeval * time;
-	time = (struct timeval *)malloc(sizeof(struct timeval));
+	clockid_t *clockid;
+	struct timespec *timestats;
 
-	struct rusage * usage;
-	usage = (struct rusage *)malloc(sizeof(usage));
+	clockid = (clockid_t*)malloc(sizeof(clockid_t));
+	timestats = (struct timespec*)malloc(sizeof(struct timespec));
 
-	getrusage(RUSAGE_SELF, usage);
+	//Get ID of current CPU Clock
+	if(clock_getcpuclockid(0, clockid) < 0) {
+		fprintf(stderr, "Error getting clock ID");
+	}
+
+
+	//Get resolution of clock
+	if(clock_getres(*clockid, timestats) < 0) {
+		fprintf(stderr, "Error getting clock resolution");
+	}
+
+	printf("\n--- Clock Resolution ---\n");
+	printf("Seconds: %d\n", (int)(timestats->tv_sec));
+	printf("nanoseconds: %ld\n", timestats->tv_nsec);
 	
-	*time = usage->ru_stime;
-	printf("\nUser Time: %f\n", (double)time->tv_usec);
-	fflush(stdout);
-
-	free(time);
-	free(usage);
+	free(timestats);
+	free(clockid);
 
 	return 0;
 
