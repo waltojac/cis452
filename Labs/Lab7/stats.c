@@ -47,19 +47,12 @@ int main(){
 	printf("Soft limit:\t%d\n", (int)(nofile->rlim_cur));
 	free(nofile);
 
-	//create and allocate the structure for number of pages
-	//FIXME
-	struct rlimit *as;
-	as = (struct rlimit *)malloc(sizeof(struct rlimit));
-	
-	//check the limit of the resource NPROC
-	getrlimit(RLIMIT_MEMLOCK, as);
-	
-	printf("\n--- Number of Pages ---\n");
-	printf("Hard limit:\t%d\n", (int)(as->rlim_max)/4096);
-	printf("Soft limit:\t%d\n", (int)(as->rlim_cur)/4096);
 
-	free(as);
+
+	long pageSize = sysconf(_SC_PAGESIZE);
+	printf("\nPage Size: %ld\n", pageSize);
+	printf("\nNumber of Pages: %ld\n", sysconf(_SC_PHYS_PAGES));
+	
 
 	//clock resolution
 	clockid_t *clockid;
