@@ -10,7 +10,7 @@ int main()
 
 	data1 = malloc (SIZE);
 	printf ("Please input username: ");
-	scanf ("%s", data1);
+	fgets (data1, SIZE, stdin);
 	printf ("you entered: %s\n", data1);
 	free (data1);
 	return 0;
