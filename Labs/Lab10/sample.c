@@ -17,8 +17,7 @@ int main()
    for (count=1; count<=LOOP; count++)
       for (i=0; i<dim; i++)
          for (j=0; j<dim; j++)
-            intPtr[i * dim + j] = (i + j) % count;
-
+			intPtr[j * dim + i] = (i + j) % count;
    free (intPtr);
    return 0;
 }
