@@ -24,11 +24,11 @@ int main(){
 
 
 	int *d = (int*)malloc(sizeof(int));
-	printf("\nHeap: %p", &d);
 	int *e = (int*)malloc(sizeof(int));
-	printf("\nHeap: %p, %p", &d, &e);
 	int *f = (int*)malloc(sizeof(int));
-	printf("\nHeap: %p, %p, %p", &d, &e, &f);
+	printf("\nHeap: %p, %p, %p\n", d, e, f);
+
+	printf("PID: %d\n", getpid());
 
 	fflush(stdout);
 	pause();

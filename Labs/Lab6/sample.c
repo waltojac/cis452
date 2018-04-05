@@ -104,12 +104,14 @@ void Wait(int semId) {
 	sops[0].sem_num = 0;
 	sops[0].sem_op = -1;
 	sops[0].sem_flg = 0;
+/*
 	// Wait for val to become 0
 	sops[1].sem_num = 0;
 	sops[1].sem_op = 0;
 	sops[1].sem_flg = 0;
 
-	if(semop(semId, sops, 2) < 0) {
+	*/
+	if(semop(semId, sops, 1) < 0) {
 		perror("semop");
 		exit(1);
 	}
