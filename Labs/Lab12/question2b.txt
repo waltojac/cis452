@@ -1,0 +1,27 @@
+Script started on Thu 05 Apr 2018 02:41:07 PM EDT
+[?1034h[eos18:~/CIS452/CIS452-Group-Work/Labs/Lab12]$ ls
+a.out  question1c.txt  question2b.txt  s2.out  sample1.c  sample2.c
+[eos18:~/CIS452/CIS452-Group-Work/Labs/Lab12]$ ls -la [K
+total 44
+drwx--x--x  2 lafeldtb users 4096 Apr  5 14:41 .
+drwx--x--x 13 lafeldtb users 4096 Apr  5 13:22 ..
+-rwx--x--x  1 lafeldtb users 8896 Apr  5 14:40 a.out
+-rw-------  1 lafeldtb users 1368 Apr  5 14:24 question1c.txt
+-rw-------  1 lafeldtb users    0 Apr  5 14:41 question2b.txt
+-rwx--x--x  1 lafeldtb users 8680 Apr  5 13:40 s2.out
+-rw-------  1 lafeldtb users  513 Apr  5 14:15 sample1.c
+-rw-r--r--  1 lafeldtb users  471 Apr  5 14:40 sample2.c
+[eos18:~/CIS452/CIS452-Group-Work/Labs/Lab12]$ gcc -Wall sample2.c 
+[eos18:~/CIS452/CIS452-Group-Work/Labs/Lab12]$ ./a.out
+sample1.c           	513
+sample2.c           	471
+a.out               	8896
+question2b.txt      	0
+..                  	4096
+.                   	4096
+question1c.txt      	1368
+s2.out              	8680
+[eos18:~/CIS452/CIS452-Group-Work/Labs/Lab12]$ exit
+exit
+
+Script done on Thu 05 Apr 2018 02:41:36 PM EDT
