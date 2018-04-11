@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>
@@ -8,6 +9,7 @@
 #include <langinfo.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 
 struct dirent  *dp;
 struct stat     statbuf;
@@ -20,42 +22,64 @@ int depthFirstSearch(DIR* dir, char* option);
 
 int main(int argc, char* argv[]){
 	
-	if(argc < 2) {
+	if(argc < 3) {
+		printf("Need 3 arguments: name [-i, -j] filepath\n");
 		return 1;
 	}
 
-	DIR *dir = opendir(argv[1]);
+	DIR *dir = opendir(argv[2]);
 
 	/* Loop through directory entries. */
 	while ((dp = readdir(dir)) != NULL) {
 
-		/* Get entry's information. */
-		if (stat(dp->d_name, &statbuf) == -1)
+		char* filename;
+		filename = (char*)calloc(256, sizeof(char));
+
+		strcat(filename, argv[2]);
+		strcat(filename, dp->d_name);
+
+		/* Get file's information. */
+		if (stat(argv[2], &statbuf) == -1){
+			free(filename);
+			perror("Exit reason: \n");
 			continue;
+		}
 
-		/* Print out mode of file*/
-		printf(" %d", statbuf.st_mode);
+		//printf("File in question: %s\n", filename);
+		if (!strcmp(argv[1], "-n")) {
 
-		/* Print out owner's name*/
-		printf(" %-8d", statbuf.st_uid);
+			/* Print out UID */
+			printf("%d", statbuf.st_uid);
 
-		/* Print out group name*/
-		printf(" %-8d", statbuf.st_gid);
+			/* Print out GID */
+			printf(" %d", statbuf.st_gid);
 
-		/* Print size of file. */
-		printf(" %9jd", (intmax_t)statbuf.st_size);
+			/* Print size of file. */
+			printf(" %jd", (intmax_t)statbuf.st_size);
 
-		/* Print modification date of file. */
-		tm = localtime(&statbuf.st_mtime);
-		strftime(datestring, sizeof(datestring), nl_langinfo(D_T_FMT), tm);
-		printf(" %s %s\n", datestring, dp->d_name);
+			/* Print modification date of file. */
+			tm = localtime(&statbuf.st_mtime);
+			strftime(datestring, sizeof(datestring), nl_langinfo(D_T_FMT), tm);
+			printf(" %s", datestring);
+			
+			/* Print filename */
+			printf(" %s\n", dp->d_name);
 
+		} else if (!strcmp(argv[1], "-i")) {
+			
+			/* Print out inode # */
+			printf("%d", (int)(statbuf.st_ino));
+
+			/* Print filename */
+			printf(" %s\n", dp->d_name);
+		}
+		
+
+		free(filename);
 
 	}
+	//perror("Exit reason: \n");
+	closedir(dir);
 	return 0;
 }
 
-int depthFirstSearch(DIR* dir, char* option) {
-		
-
-}
