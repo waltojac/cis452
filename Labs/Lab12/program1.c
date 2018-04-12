@@ -29,6 +29,11 @@ int main(int argc, char* argv[]){
 
 	DIR *dir = opendir(argv[2]);
 
+	if (!strcmp(argv[1], "-n")) {
+		stat(argv[2], &statbuf);
+		printf("Total: %d\n", statbuf.st_blocks);
+	}
+
 	/* Loop through directory entries. */
 	while ((dp = readdir(dir)) != NULL) {
 
@@ -47,7 +52,7 @@ int main(int argc, char* argv[]){
 
 		//printf("File in question: %s\n", filename);
 		if (!strcmp(argv[1], "-n")) {
-
+			
 			/* Print out UID */
 			printf("%d", statbuf.st_uid);
 
