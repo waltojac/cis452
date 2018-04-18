@@ -31,7 +31,7 @@ int main(int argc, char* argv[]){
 
 	if (!strcmp(argv[1], "-n")) {
 		stat(argv[2], &statbuf);
-		printf("Total: %d\n", statbuf.st_blocks);
+		printf("Total: %d\n", (int)(statbuf.st_blocks));
 	}
 
 	/* Loop through directory entries. */
@@ -44,7 +44,7 @@ int main(int argc, char* argv[]){
 		strcat(filename, dp->d_name);
 
 		/* Get file's information. */
-		if (stat(argv[2], &statbuf) == -1){
+		if (stat(filename, &statbuf) == -1){
 			free(filename);
 			perror("Exit reason: \n");
 			continue;
