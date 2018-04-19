@@ -1,0 +1,31 @@
+Script started on Thu 19 Apr 2018 01:07:45 PM EDT
+[eos17:~/Documents/cis452/cis452/Labs/Lab13]$ gcc -Wall program2.c -o my_ln
+[eos17:~/Documents/cis452/cis452/Labs/Lab13]$ ./my_ln -h program1a.c hardProg
+Hard link hardProg to program1a.c created.
+[eos17:~/Documents/cis452/cis452/Labs/Lab13]$ ls -l
+total 44
+-rwx--x--x 1 waltojac users 8824 Apr 18 14:19 a.out
+-rw------- 2 waltojac users  805 Apr 12 14:00 hardProg
+-rwx--x--x 1 waltojac users 8824 Apr 19 13:07 my_ln
+-rw------- 2 waltojac users  805 Apr 12 14:00 program1a.c
+-rw------- 1 waltojac users  781 Apr 12 14:00 program1b.c
+-rw------- 1 waltojac users 1250 Apr 19 12:59 program2.c
+-rw------- 1 waltojac users  683 Apr 18 13:58 sample1.c
+-rw------- 1 waltojac users    0 Apr 19 13:07 sampleRun.txt
+[eos17:~/Documents/cis452/cis452/Labs/Lab13]$ ./my_ln -s program2.c softProg
+Soft link softProg to program1b.c created.
+[eos17:~/Documents/cis452/cis452/Labs/Lab13]$ ls -l
+total 44
+-rwx--x--x 1 waltojac users 8824 Apr 18 14:19 a.out
+-rw------- 2 waltojac users  805 Apr 12 14:00 hardProg
+-rwx--x--x 1 waltojac users 8824 Apr 19 13:07 my_ln
+-rw------- 2 waltojac users  805 Apr 12 14:00 program1a.c
+-rw------- 1 waltojac users  781 Apr 12 14:00 program1b.c
+-rw------- 1 waltojac users 1250 Apr 19 12:59 program2.c
+-rw------- 1 waltojac users  683 Apr 18 13:58 sample1.c
+-rw------- 1 waltojac users    0 Apr 19 13:07 sampleRun.txt
+lrwxrwxrwx 1 waltojac users   11 Apr 19 13:08 softProg -> program1b.c
+[eos17:~/Documents/cis452/cis452/Labs/Lab13]$ exit
+exit
+
+Script done on Thu 19 Apr 2018 01:08:57 PM EDT

@@ -1,3 +1,10 @@
+/*
+ * Lab 13: Simple LN program.
+ * Authors: Jake Walton and Ben LaFeldt
+ * Date: 4/18/18
+ */
+
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
