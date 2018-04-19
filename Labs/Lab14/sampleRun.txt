@@ -1,0 +1,28 @@
+Script started on Thu 19 Apr 2018 02:31:36 PM EDT
+[?1034h[eos17:~/Documents/cis452/cis452/Labs/Lab14]$ gcc -Wall program.c
+[eos17:~/Documents/cis452/cis452/Labs/Lab14]$ ./a.out
+1244387726
+898670367
+718450907
+26692657
+856700636
+1975091205
+1963061995
+105272228
+1613961562
+788690948
+[eos17:~/Documents/cis452/cis452/Labs/Lab14]$ ./a.out
+354764686
+1989727778
+1858952667
+64846611
+1714572493
+275380531
+36536145
+1224887321
+690580419
+228538319
+[eos17:~/Documents/cis452/cis452/Labs/Lab14]$ exit
+exit
+
+Script done on Thu 19 Apr 2018 02:31:56 PM EDT
